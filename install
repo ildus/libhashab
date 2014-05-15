@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# libhashab install #
+
+color= reset=
+if [[ -t 1 ]]; then
+	color=$(tput setaf 6)
+	reset=$(tput sgr0);
+fi
+
+architecture="$(getcong LONG_BIT)"
+
+if [ "${architecture}" == '32' ]; then
+
+mkdir /usr/lib/libgpod
+
+cp libhashab32.so /usr/lib/libgpod/libhashab.so
+
+elif [ "${architecture}" == '64' ]; then
+
+mkdir /usr/lib/x86_64-linux-gnu/libgpod
+
+cp libhashab32.so /usr/lib/x86_64-linux-gnu/libgpod/libhashab32.so
+cp libhashab32_wrapper /usr/lib/x86_64-linux-gnu/libgpod/libhashab32_wrapper
+cp libhashab64.so /usr/lib/x86_64-linux-gnu/libgpod/libhashab.so
+
+else
+
+echo "${color}No valid architecture detected. Aborting...${reset}"
+
+fi
